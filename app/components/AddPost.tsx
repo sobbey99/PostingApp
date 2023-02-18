@@ -3,7 +3,8 @@
 import { useState } from "react"
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import toast from 'react-hot-toast'
 
 export default function CreatePost() {
     const [title, setTitle] = useState('');
@@ -15,10 +16,13 @@ export default function CreatePost() {
         async (title: string) => await axios.post('/api/posts/addPost', {title}),
         {
             onError: (error) => {
-                console.log(error)
+                if(error instanceof AxiosError){
+                    toast.error(error?.response?.data.message)
+                }
+                setIsDisabled(false)
             },
             onSuccess: (data) => {
-                console.log(data)
+                toast.success(`Post has been made \u{1F525}`)
                 setTitle('')
                 setIsDisabled(false)
             }
