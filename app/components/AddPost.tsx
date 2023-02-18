@@ -12,7 +12,17 @@ export default function CreatePost() {
 
     //Create a post
     const {mutate} = useMutation(
-        async (title: string) => await axios.post('/api/posts/addPost', {title})
+        async (title: string) => await axios.post('/api/posts/addPost', {title}),
+        {
+            onError: (error) => {
+                console.log(error)
+            },
+            onSuccess: (data) => {
+                console.log(data)
+                setTitle('')
+                setIsDisabled(false)
+            }
+        }
     )
 
     const submitPost = async (e: React.FormEvent) => {
