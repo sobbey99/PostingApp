@@ -1,13 +1,29 @@
 'use client'
 
 import { useState } from "react"
+import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
 export default function CreatePost() {
     const [title, setTitle] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
 
+
+    //Create a post
+    const {mutate} = useMutation(
+        async (title) => await axios.post('/api/posts/addPost', {title})
+    )
+
+    const submitPost = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setIsDisabled(true)
+        mutate(title)
+    }
     return (
-        <form className="bg-white my-8 p-8 rounded-md">
+        <form className="bg-white my-8 p-8 rounded-md"
+        onSubmit={submitPost}
+        >
             <div className="flex flex-col my-4">
                 <textarea 
                 name="title"
