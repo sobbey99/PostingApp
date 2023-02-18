@@ -19,6 +19,7 @@ export default function Logged({image}: User) {
             width={64} 
             height={64}
             src={image}
+            className='rounded-full'
             alt=''/>
             </Link>
 
