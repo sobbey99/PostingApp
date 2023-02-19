@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useState } from "react"
+import Toggle from "./Toggle"
 
 type EditProps = {
     id: string
@@ -16,7 +17,11 @@ type EditProps = {
 }
 
 export default function EditPost({avatar, name, title, Comment, id}: EditProps) {
+    //Toggle
+    const [toggle, setToggle] = useState(false)
+
     return (
+    <>
         <div className="bg-white my-8 p-8 rounded-lg">
             <div className="flex items-center gap-2">
                 <Image 
@@ -40,5 +45,8 @@ export default function EditPost({avatar, name, title, Comment, id}: EditProps) 
                 >Delete</button>
             </div>
         </div>
+
+        {toggle && <Toggle />}
+    </>
     )
 }
