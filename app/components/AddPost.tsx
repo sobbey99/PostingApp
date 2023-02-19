@@ -24,10 +24,11 @@ export default function CreatePost() {
                 setIsDisabled(false)
             },
             onSuccess: (data) => {
-                toast.success(`Post has been made \u{1F525}`, {id: toastPostID})
+                toast.success(`Post has been made 🔥`, {id: toastPostID})
                 queryClient.invalidateQueries(['posts'])
                 setTitle('')
                 setIsDisabled(false)
+                 
             }
         }
     )
